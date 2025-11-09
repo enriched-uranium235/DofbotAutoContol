@@ -1,6 +1,6 @@
 # Dofbot自動操縦用RPA
 
-** 本ツールは開発途中です。動作は保証しません。 **
+<span style="color: red; ">本ツールは開発途中です。動作は保証しません。</span>
 
 　このツールはYahboom社のDofbotをAIエージェントから操縦することを目的に開発しているRPAサーバーです。
 
@@ -82,18 +82,18 @@ min_servo6=0
 max_servo6=180
 dofbot_ip="127.0.0.1"
 dofbot_port=6000
-dofbot_app_connect_button_coodinate=(0, 0)
-dofbot_check_network_coodinate=(0, 0)
-dofbot_app_ip_input_coodinate=(0, 0)
-dofbot_app_port_input_coodinate=(0, 0)
-dofbot_app_connect_submit_button_coodinate=(0, 0)
-dofbot_app_use_coodinate=(0, 0)
-dofbot_app_servo1_scroll_coodinate=(0, 0)
-dofbot_app_servo2_scroll_coodinate=(0, 0)
-dofbot_app_servo3_scroll_coodinate=(0, 0)
-dofbot_app_servo4_scroll_coodinate=(0, 0)
-dofbot_app_servo5_scroll_coodinate=(0, 0)
-dofbot_app_servo6_scroll_coodinate=(0, 0)
+dofbot_app_connect_button_coodinate=[0, 0]
+dofbot_check_network_coodinate=[0, 0]
+dofbot_app_ip_input_coodinate=[0, 0]
+dofbot_app_port_input_coodinate=[0, 0]
+dofbot_app_connect_submit_button_coodinate=[0, 0]
+dofbot_app_use_coodinate=[0, 0]
+dofbot_app_servo1_scroll_coodinate=[0, 0]
+dofbot_app_servo2_scroll_coodinate=[0, 0]
+dofbot_app_servo3_scroll_coodinate=[0, 0]
+dofbot_app_servo4_scroll_coodinate=[0, 0]
+dofbot_app_servo5_scroll_coodinate=[0, 0]
+dofbot_app_servo6_scroll_coodinate=[0, 0]
 ```
 
   - min_servo1, ... , max_servo6はアームのそれぞれのサーボの角度の設定できる最小値と最大値を表します。本棚の上等高いところにアームが置いてある場合はmin_servo1とmax_servo1を90固定にして動かさないのが推奨です。
@@ -112,10 +112,10 @@ dofbot_app_servo6_scroll_coodinate=(0, 0)
 python server/src/main.py
 ```
 
-- http://localhost:6001 でサーバーが立ち上がり、Dofbotの制御アプリが手元PCの最前面に出ていたら他端末から以下のようにcurlコマンドを飛ばしたりリクエストを飛ばすことでロボットアームを制御できます。
+- http://localhost:6001 でサーバーが立ち上がり、Dofbotの制御アプリが手元PCの最前面に出ていたら同一ネットワーク環境の他端末から以下のようにcurlコマンドを飛ばしたりリクエストを飛ばすことでロボットアームを制御できます。
 
 ```sh
-curl -X POST http://localhost:6001/api/v1/controller \
+curl -X POST http://(サーバーを動かしているPCのIPアドレス):6001/api/v1/controller \
     -H "Content-Type: application/json" \
     -d '{"servo1": 0, "servo2": 0, "servo3": 0, "servo4": 0, "servo5": 0, "servo6": 0}'
 ```
