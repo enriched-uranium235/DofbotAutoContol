@@ -1,6 +1,6 @@
 import subprocess
 import os
-from server.src.core.models.config import Config
+from src.core.models.config import Config
 
 import pyautogui as pag
 
@@ -12,7 +12,7 @@ def start_dofbot(config: Config) -> None:
     current_dir = os.path.dirname(os.path.abspath(__file__))
     
     # Construct the path to Dofbot.exe
-    dofbot_path = os.path.join(current_dir, "..", "..", "Dofbot.exe")
+    dofbot_path = os.path.join(current_dir, "../../../", "Dofbot.exe")
     
     # Check if the file exists
     if not os.path.isfile(dofbot_path):

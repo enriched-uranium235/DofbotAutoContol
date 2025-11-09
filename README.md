@@ -2,7 +2,7 @@
 
 ** 本ツールは開発途中です。動作は保証しません。 **
 
-　このツールはYahboom社のDofbotをAIエージェントから操縦することを目的に開発しているシステムです。
+　このツールはYahboom社のDofbotをAIエージェントから操縦することを目的に開発しているRPAサーバーです。
 
 ## 動作環境
 - Windows10
@@ -32,7 +32,7 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-- Yahboom社の公式サイト(http://www.yahboom.net/study/Dofbot-Pi)にアクセスし、手元のDofbotに対応した操作用のアプリケーションをダウンロードします。本ツールで使用するのは左メニューのDownloadのPC Softwareのリンク先にあるYahboomArmEn.zipに入っているコンテンツになります。
+- Yahboom社の公式サイト(http://www.yahboom.net/study/Dofbot-Pi )にアクセスし、手元のDofbotに対応した操作用のアプリケーションをダウンロードします。本ツールで使用するのは左メニューのDownloadのPC Softwareのリンク先にあるYahboomArmEn.zipに入っているコンテンツになります。
 
 - ダウンロードしたzipファイルを展開後中に入っている3DS, Video, Dofbot.exeをDofbotAutoContrtol配下に複製します。
 
@@ -112,7 +112,7 @@ dofbot_app_servo6_scroll_coodinate=(0, 0)
 python server/src/main.py
 ```
 
-- http://localhost:6001でサーバーが立ち上がり、Dofbotの制御アプリが手元PCの最前面に出ていたら他端末から以下のようにcurlコマンドを飛ばしたりリクエストを飛ばすことでロボットアームを制御できます。
+- http://localhost:6001 でサーバーが立ち上がり、Dofbotの制御アプリが手元PCの最前面に出ていたら他端末から以下のようにcurlコマンドを飛ばしたりリクエストを飛ばすことでロボットアームを制御できます。
 
 ```sh
 curl -X POST http://localhost:6001/api/v1/controller \

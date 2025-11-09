@@ -1,6 +1,7 @@
 from core.models.config import Config
 import toml
 import os
+from src.frameworks.start_dofbot import start_dofbot
 
 class ConfigManager:
     """
@@ -14,21 +15,26 @@ class ConfigManager:
     def get_config(self) -> Config:
         return self.config
     
-    def set_config(self, config: Config) -> None:
+    def set_config(self, config: Config) -> 'ConfigManager':
         """
         Set a new configuration.
         :param config: New configuration to set.
+        :return: The ConfigManager instance for method chaining.
         """
         self.config = config
+        return self
 
 def create_config():
     config_path = os.path.join(os.path.dirname(__file__), '../../config.toml')
-    if os.path.exists(config_path):
-        with open(config_path, 'r', encoding='utf-8') as file:
-            try:
-                config_data = toml.load(file)
-                return Config(**config_data)
-            except toml.TomlDecodeError as e:
-                raise ValueError(f"Error decoding TOML file: {e}")
-    else:
-        raise FileNotFoundError(f"Config file not found at {config_path}")
+    if not os.path.isfile(config_path):
+        raise FileNotFoundError(f"Configuration file not found at {config_path}")
+    with open(config_path) as f:
+        toml_data = toml.load(f)
+        config_data = {}
+        if "dofbot" in toml_data:
+            for key, value in toml_data["dofbot"].items():
+                if isinstance(value, list) and len(value) == 2:
+                    config_data[key] = tuple(value)
+                else:
+                    config_data[key] = value
+    return Config(**config_data)

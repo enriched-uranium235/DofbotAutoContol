@@ -8,8 +8,16 @@ from usecases.dofbot.dofbot_controller import DofBotController as DofBotControll
 
 router = APIRouter()
 
+def get_config() -> Config:
+    from src.main import config_manager
+    return config_manager.get_config()
+
 @router.post(API_DOFBOT_CONTROLLER)
-def control_dofbot(dofbot: DofbotControllerDto, dofbot_controller: DofBotControllerService, config: Config = Depends(ConfigManager.get_config)):
+def control_dofbot(
+    dofbot: DofbotControllerDto,
+    dofbot_controller: DofBotControllerService = Depends(DofBotControllerService),
+    config: Config = Depends(get_config)
+):
     dofbot_control_params = DofbotControl(
         servo1=dofbot.servo1,
         servo2=dofbot.servo2,
@@ -24,6 +32,9 @@ def control_dofbot(dofbot: DofbotControllerDto, dofbot_controller: DofBotControl
 
 
 @router.get(API_DOFBOT_CONTROLLER_SET_NEWTRAL)
-def set_newtral_position(dofbot_controller: DofBotControllerService):
-    dofbot_controller.set_newtral_position()
+def set_newtral_position(
+    dofbot_controller: DofBotControllerService = Depends(DofBotControllerService),
+    config: Config = Depends(get_config)
+):
+    dofbot_controller.set_newtral_position(config)
     return {status.HTTP_200_OK: "DOFBOT set to newtral position successfully"}

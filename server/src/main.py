@@ -13,12 +13,12 @@ from src.frameworks.start_dofbot import start_dofbot
 
 app = FastAPI()
 config = create_config()
-config_manager = ConfigManager(config).set_config(config)
-
+config_manager = ConfigManager(config)
+config_manager.set_config(config)
 create_router(app)
-start_dofbot(ConfigManager.get_config())
 
 if __name__ == "__main__":
+    start_dofbot(config)
     # ポート6001でサーバーを起動
     try:
         uvicorn.run("src.main:app", host="localhost", port=6001, reload=True)
